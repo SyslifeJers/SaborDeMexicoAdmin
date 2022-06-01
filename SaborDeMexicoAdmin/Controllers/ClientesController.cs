@@ -27,6 +27,14 @@ namespace SaborDeMexicoAdmin.Controllers
                 return Redirect(Url.ActionLink("Login", "Home"));
             }
             return View(await _context.Cliente.ToListAsync());
+        }     
+        public async Task<IActionResult> Ordenes()
+        {
+            if (String.IsNullOrEmpty(HttpContext.Session.GetString("id")))
+            {
+                return Redirect(Url.ActionLink("Login", "Home"));
+            }
+            return View(await _context.Cliente.ToListAsync());
         }
 
         // GET: Clientes/Details/5
