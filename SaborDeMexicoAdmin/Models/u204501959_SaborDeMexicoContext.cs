@@ -77,6 +77,9 @@ namespace SaborDeMexicoAdmin.Models
                 entity.HasIndex(e => e.IdCliente)
                     .HasName("kf_idcliente_Carrito");
 
+                entity.HasIndex(e => e.IdPresentacion)
+                    .HasName("Id_Presentacion");
+
                 entity.HasIndex(e => e.ProductoId)
                     .HasName("fk_Carrito_Producto1_idx");
 
@@ -85,6 +88,10 @@ namespace SaborDeMexicoAdmin.Models
                 entity.Property(e => e.Cantidad).HasColumnType("int(11)");
 
                 entity.Property(e => e.IdCliente).HasColumnType("int(11)");
+
+                entity.Property(e => e.IdPresentacion)
+                    .HasColumnName("Id_Presentacion")
+                    .HasColumnType("int(11)");
 
                 entity.Property(e => e.Modificado).HasColumnType("datetime");
 
@@ -102,6 +109,12 @@ namespace SaborDeMexicoAdmin.Models
                     .HasForeignKey(d => d.IdCliente)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("kf_idcliente_Carrito");
+
+                entity.HasOne(d => d.IdPresentacionNavigation)
+                    .WithMany(p => p.Carrito)
+                    .HasForeignKey(d => d.IdPresentacion)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("Carrito_ibfk_1");
 
                 entity.HasOne(d => d.Producto)
                     .WithMany(p => p.Carrito)
@@ -161,6 +174,9 @@ namespace SaborDeMexicoAdmin.Models
                 entity.HasKey(e => e.IdDetalleOrden)
                     .HasName("PRIMARY");
 
+                entity.HasIndex(e => e.IdPresentacion)
+                    .HasName("fk_DetalleOrden_Presentacion");
+
                 entity.HasIndex(e => e.OrdenId)
                     .HasName("fk_DetalleOrden_Orden_idx");
 
@@ -172,6 +188,10 @@ namespace SaborDeMexicoAdmin.Models
                     .HasColumnType("int(11)");
 
                 entity.Property(e => e.Cantidad).HasColumnType("int(11)");
+
+                entity.Property(e => e.IdPresentacion)
+                    .HasColumnName("Id_Presentacion")
+                    .HasColumnType("int(11)");
 
                 entity.Property(e => e.Nota)
                     .HasColumnType("varchar(145)")
@@ -188,6 +208,12 @@ namespace SaborDeMexicoAdmin.Models
 
                 entity.Property(e => e.Subtotal).HasColumnType("decimal(20,2)");
 
+                entity.HasOne(d => d.IdPresentacionNavigation)
+                    .WithMany(p => p.DetalleOrdenIdPresentacionNavigation)
+                    .HasForeignKey(d => d.IdPresentacion)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_DetalleOrden_Presentacion");
+
                 entity.HasOne(d => d.Orden)
                     .WithMany(p => p.DetalleOrden)
                     .HasForeignKey(d => d.OrdenId)
@@ -195,7 +221,7 @@ namespace SaborDeMexicoAdmin.Models
                     .HasConstraintName("fk_DetalleOrden_Orden");
 
                 entity.HasOne(d => d.Producto)
-                    .WithMany(p => p.DetalleOrden)
+                    .WithMany(p => p.DetalleOrdenProducto)
                     .HasForeignKey(d => d.ProductoId)
                     .HasConstraintName("fk_DetalleOrden_Producto1");
             });
@@ -351,6 +377,10 @@ namespace SaborDeMexicoAdmin.Models
 
                 entity.Property(e => e.Activo).HasColumnType("int(11)");
 
+                entity.Property(e => e.Lat).HasColumnType("decimal(12,8)");
+
+                entity.Property(e => e.Lon).HasColumnType("decimal(12,8)");
+
                 entity.Property(e => e.Modificado).HasColumnType("datetime");
 
                 entity.Property(e => e.Nombre)
@@ -358,18 +388,7 @@ namespace SaborDeMexicoAdmin.Models
                     .HasCharSet("utf8mb4")
                     .HasCollation("utf8mb4_unicode_ci");
 
-                entity.Property(e => e.Pin)
-                    .IsRequired()
-                    .HasColumnName("pin")
-                    .HasColumnType("varchar(10)")
-                    .HasCharSet("utf8mb4")
-                    .HasCollation("utf8mb4_unicode_ci");
-
-                entity.Property(e => e.Token)
-                    .IsRequired()
-                    .HasColumnType("longtext")
-                    .HasCharSet("utf8mb4")
-                    .HasCollation("utf8mb4_unicode_ci");
+                entity.Property(e => e.Rango).HasColumnType("decimal(10,2)");
             });
 
             modelBuilder.Entity<Ruta>(entity =>
