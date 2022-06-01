@@ -28,13 +28,18 @@ namespace SaborDeMexicoAdmin.Controllers
             }
             return View(await _context.Cliente.ToListAsync());
         }     
-        public async Task<IActionResult> Ordenes()
+        public async Task<IActionResult> Ordenes(int id)
         {
             if (String.IsNullOrEmpty(HttpContext.Session.GetString("id")))
             {
                 return Redirect(Url.ActionLink("Login", "Home"));
             }
-            return View(await _context.Cliente.ToListAsync());
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            return View(await _context.Orden.Where(d=>d.ClienteId==id).Include(d=>d.DetalleOrden).Include(d => d.Cliente).ToListAsync());
         }
 
         // GET: Clientes/Details/5
