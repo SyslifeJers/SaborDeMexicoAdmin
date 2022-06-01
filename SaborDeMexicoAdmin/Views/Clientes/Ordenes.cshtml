@@ -9,99 +9,92 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Total)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Ordencol)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Notas)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Fecha)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Cantidad)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Activo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Modifcado)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CostoEnvio)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Estatus)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TipoPago)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Cliente)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Repartidor)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Ruta)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Total)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Ordencol)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Notas)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Fecha)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Cantidad)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Activo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Modifcado)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CostoEnvio)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Estatus)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TipoPago)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Cliente.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Repartidor.Pin)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Ruta.Id)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Fecha)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Cliente)
+                </th>
+                <th>
+                    Orden
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Notas)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Cantidad)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CostoEnvio)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Total)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TipoPago)
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.Estatus)
+                </th>
+              
+                <th>
+                    @Html.DisplayNameFor(model => model.Ruta)
+                </th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Fecha)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Cliente.Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Ordencol)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Notas)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Cantidad)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CostoEnvio)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Total)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TipoPago)
+                    </td>
+                    @{if (item.Activo == 1)
+                        {
+                            <td>En espera de pago</td>
+                        }
+                        else
+                        {
+                            <td>Pagado</td>
+                        }}
+                   
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Ruta.Direccion)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id">Detalle</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
