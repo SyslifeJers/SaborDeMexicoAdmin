@@ -15,7 +15,9 @@ namespace SaborDeMexicoAdmin.Models
         public decimal? Subtotal { get; set; }
         public int OrdenId { get; set; }
         public int? ProductoId { get; set; }
+        public int IdPresentacion { get; set; }
 
+        public virtual Presentacion IdPresentacionNavigation { get; set; }
         public virtual Orden Orden { get; set; }
         public virtual Presentacion Producto { get; set; }
     }

@@ -11,7 +11,9 @@ namespace SaborDeMexicoAdmin.Models
     {
         public Presentacion()
         {
-            DetalleOrden = new HashSet<DetalleOrden>();
+            Carrito = new HashSet<Carrito>();
+            DetalleOrdenIdPresentacionNavigation = new HashSet<DetalleOrden>();
+            DetalleOrdenProducto = new HashSet<DetalleOrden>();
         }
 
         public int Id { get; set; }
@@ -21,6 +23,8 @@ namespace SaborDeMexicoAdmin.Models
         public int IdProducto { get; set; }
 
         public virtual Producto IdProductoNavigation { get; set; }
-        public virtual ICollection<DetalleOrden> DetalleOrden { get; set; }
+        public virtual ICollection<Carrito> Carrito { get; set; }
+        public virtual ICollection<DetalleOrden> DetalleOrdenIdPresentacionNavigation { get; set; }
+        public virtual ICollection<DetalleOrden> DetalleOrdenProducto { get; set; }
     }
 }
