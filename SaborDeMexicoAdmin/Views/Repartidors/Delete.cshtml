@@ -6,7 +6,7 @@
 
 <h1>Eliminar</h1>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Seguro que desea eliminar?</h3>
 <div>
     <h4>Repartidor</h4>
     <hr />
@@ -16,6 +16,24 @@
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Nombre)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Rango)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Rango)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Lat)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Lat)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Lon)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Lon)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Activo)
@@ -29,23 +47,11 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Modificado)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Pin)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Pin)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Token)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Token)
-        </dd>
     </dl>
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Regresar</a>
+        <input type="submit" value="Eliminar" class="btn btn-danger" /> |
+        <a asp-action="Index">Regrsar a la lista</a>
     </form>
 </div>

@@ -1,4 +1,4 @@
-﻿using System;
+﻿                                                                                                                                                                                                                                                                                                                                                        using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -53,10 +53,12 @@ namespace SaborDeMexicoAdmin.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nombre,Activo,Modificado,Pin,Token")] Repartidor repartidor)
+        public async Task<IActionResult> Create([Bind("Id,Nombre,Rango,Lat,Lon,Activo,Modificado")] Repartidor repartidor)
         {
             if (ModelState.IsValid)
             {
+                repartidor.Activo = 1;
+                repartidor.Modificado = DateTime.Now;
                 _context.Add(repartidor);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -85,7 +87,7 @@ namespace SaborDeMexicoAdmin.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Activo,Modificado,Pin,Token")] Repartidor repartidor)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Rango,Lat,Lon,Activo,Modificado")] Repartidor repartidor)
         {
             if (id != repartidor.Id)
             {
