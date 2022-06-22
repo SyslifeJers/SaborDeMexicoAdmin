@@ -4,7 +4,7 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Editar</h1>
+<h1>Edit</h1>
 
 <h4>Repartidor</h4>
 <hr />
@@ -19,6 +19,21 @@
                 <span asp-validation-for="Nombre" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Rango" class="control-label"></label>
+                <input asp-for="Rango" class="form-control" />
+                <span asp-validation-for="Rango" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Lat" class="control-label"></label>
+                <input asp-for="Lat" class="form-control" />
+                <span asp-validation-for="Lat" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Lon" class="control-label"></label>
+                <input asp-for="Lon" class="form-control" />
+                <span asp-validation-for="Lon" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="Activo" class="control-label"></label>
                 <input asp-for="Activo" class="form-control" />
                 <span asp-validation-for="Activo" class="text-danger"></span>
@@ -28,16 +43,13 @@
                 <input asp-for="Modificado" class="form-control" />
                 <span asp-validation-for="Modificado" class="text-danger"></span>
             </div>
-
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Regresar</a>
+    <a asp-action="Index">Regresar a la lista</a>
 </div>
 
 @section Scripts {

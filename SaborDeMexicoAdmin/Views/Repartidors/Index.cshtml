@@ -4,12 +4,11 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Inicio</h1>
+<h1>Lista de repartidores</h1>
 
 <p>
-    <a asp-action="Create">Nuevo</a>
+    <a asp-action="Create">Agregar</a>
 </p>
-<div class="table-responsive">
 <table class="table">
     <thead>
         <tr>
@@ -17,12 +16,14 @@
                 @Html.DisplayNameFor(model => model.Nombre)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Activo)
+                @Html.DisplayNameFor(model => model.Rango)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Modificado)
+                @Html.DisplayNameFor(model => model.Lat)
             </th>
-
+            <th>
+                @Html.DisplayNameFor(model => model.Lon)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -32,21 +33,18 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Nombre)
             </td>
-
-                @{if (item.Activo == 1){<td>Activo</td>}else{<td>Desactivado</td>}}
-
-
             <td>
-                @Html.DisplayFor(modelItem => item.Modificado)
+                @Html.DisplayFor(modelItem => item.Rango)
             </td>
-
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
-                
+                @Html.DisplayFor(modelItem => item.Lat)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edita</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Detalle</a> |
                 <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
             </td>
         </tr>
 }
     </tbody>
 </table>
-</div>
