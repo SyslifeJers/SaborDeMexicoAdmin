@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using SaborDeMexicoAdmin.Models;
+using SaborDeMexicoAdmin.Models.ModelViews;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -21,11 +23,24 @@ namespace SaborDeMexicoAdmin.Controllers
             _context = context;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             if (String.IsNullOrEmpty(HttpContext.Session.GetString("id")))
             {
                 return Redirect(Url.ActionLink("Login", "Home"));
+            }
+            ModelMenu modelMenu = new ModelMenu();
+            try
+            {
+                modelMenu.GetListOrden = new List<Orden>(await _context.Orden.Where(d => d.Estatus >= 0).Include(d=>d.Cliente).Include(d=>d.Repartidor).Include(d=>d.Ruta).ToListAsync());
+                modelMenu.GetListProduc = new List<Producto>(await _context.Producto.Where(d => d.Activo ==1).ToListAsync());
+                modelMenu.GetListRepart = new List<Repartidor>(await _context.Repartidor.Where(d => d.Activo == 1).ToListAsync());
+                return View(modelMenu);
+            }
+            catch (Exception)
+            {
+
+                throw;
             }
             return View();
         }
@@ -55,9 +70,27 @@ namespace SaborDeMexicoAdmin.Controllers
             model.Token = "Usuario no existente";
             return View(model);
         }
-        public IActionResult Privacy()
+        public async Task<IActionResult> Delete(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+
+                try
+                {
+                var model =  await _context.Orden.FirstOrDefaultAsync(m => m.Id == id);
+                model.Estatus = -1;
+                _context.Update(model);
+                    await _context.SaveChangesAsync();
+                }
+            catch
+            {
+                return NotFound();
+            }
+               
+                return RedirectToAction(nameof(Index));
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

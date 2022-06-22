@@ -26,10 +26,15 @@ namespace SaborDeMexicoAdmin
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSession(options => {
-                options.IdleTimeout = TimeSpan.FromMinutes(240);
-                options.Cookie.HttpOnly = true;
+                options.IdleTimeout = TimeSpan.FromHours(12);
+                options.Cookie.Name = ".SaborDeMexicoAdmin.Session"; // <--- Add line
                 options.Cookie.IsEssential = true;
             });
+            //services.AddSession(options => {
+            //    options.IdleTimeout = TimeSpan.FromMinutes(240);
+            //    options.Cookie.HttpOnly = true;
+            //    options.Cookie.IsEssential = true;
+            //});
             services.AddHttpContextAccessor();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddRazorPages()
