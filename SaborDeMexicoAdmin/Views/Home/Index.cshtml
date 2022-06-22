@@ -1,4 +1,5 @@
-﻿@{
+﻿@model SaborDeMexicoAdmin.Models.ModelViews.ModelMenu
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -17,28 +18,38 @@
       <th scope="col">Importe</th>
       <th scope="col">Productos</th>
       <th scope="col">Dirección</th>
-      <th scope="col">Tipo de pago</th>
-      <th scope="col">Día de entrega estimado</th>
-
+      <th scope="col">Repartidor A.</th>
+      <th scope="col">Fecha</th>
       <th scope="col"></th>
      
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>$ 1000.00</td>
-      <td>4 productos<a class="btn-link"> Detalle</a></td>
-      <td>Calle a num 1234 Cp: 123456</td>
-      <td>Pago en cuenta (5323)</td>
-      <td>22/05/2022</td>
-       <td scope="col"><a class="btn btn-info text-white btn-sm">Verificar pago</a></td>
-    </tr>
+                @foreach (var item in Model.GetListOrden)
+         {
+      <tr>
+
+                   <th scope="row">   @Html.DisplayFor(modelItem => item.Id)</th>
+      <td>@Html.DisplayFor(modelItem => item.Cliente.Nombre)</td>
+      <td>@Html.DisplayFor(modelItem => item.Total)</td>
+      <td>@Html.DisplayFor(modelItem => item.Cantidad)</td>
+      <td>@Html.DisplayFor(modelItem => item.Ruta.Direccion)</td>
+      <td>@Html.DisplayFor(modelItem => item.Repartidor.Nombre)</td>
+      <td>@Html.DisplayFor(modelItem => item.Fecha)</td>
+       <td scope="col">
+           <a class="btn btn-info text-white btn-sm disenable"  asp-action="Confirm" asp-controller="Home" asp-route-id="@item.Id">Confirmar </a>
+           <a class="btn btn-info text-white btn-sm disenable"  asp-action="Delete" asp-controller="Home" asp-route-id="@item.Id">Cancelar </a>
+           
+       <a class="btn btn-info text-white btn-sm " asp-action="Details" asp-controller="Ordens" asp-route-id="@item.Id" >Ver más</a>
+       </td>
+         
+      </tr>
+   }
   </tbody>
 </table>
     </div>   
-    <div class="col-sm-12 col-lg-12 table-responsive">
+    <!--
+            <div class="col-sm-12 col-lg-12 table-responsive">
         <h4>Ordenes para enviar</h4>
         <table class="table">
   <thead class="thead-light">
@@ -67,6 +78,8 @@
   </tbody>
 </table>
     </div> 
+    -->
+
 
     <hr class="col-12" />
     </div>

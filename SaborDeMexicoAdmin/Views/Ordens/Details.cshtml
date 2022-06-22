@@ -16,18 +16,7 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Total)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Ordencol)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Ordencol)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Notas)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Notas)
-        </dd>
+
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Fecha)
         </dt>
@@ -40,30 +29,14 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Cantidad)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Activo)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Activo)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Modifcado)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Modifcado)
-        </dd>
+        
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.CostoEnvio)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.CostoEnvio)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Estatus)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Estatus)
-        </dd>
+
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.TipoPago)
         </dt>
@@ -74,22 +47,64 @@
             @Html.DisplayNameFor(model => model.Cliente)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Cliente.Id)
+            @Html.DisplayFor(model => model.Cliente.Nombre)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Repartidor)
         </dt>
         <dd class = "col-sm-10">
+
             @Html.DisplayFor(model => model.Repartidor.Nombre)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Ruta)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Ruta.Id)
+            @Html.DisplayFor(model => model.Ruta.Direccion)
         </dd>
     </dl>
 </div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Cantidad
+            </th>
+                        <th>
+                Producto
+            </th>
+            <th>
+                Subtotal
+            </th>
+            <th>
+               Presentación
+            </th>
+
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.DetalleOrden) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cantidad)
+            </td>
+                        <td>
+                @Html.DisplayFor(modelItem => item.Producto.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Subtotal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdPresentacionNavigation.Precentacion)
+            </td>
+
+
+        </tr>
+}
+    </tbody>
+</table>
 <div>
     <a asp-action="Edit" asp-route-id="@Model.Id">Editar</a> |
     <a asp-action="Index">Regresar</a>

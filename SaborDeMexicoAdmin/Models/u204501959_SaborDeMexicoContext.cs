@@ -209,7 +209,7 @@ namespace SaborDeMexicoAdmin.Models
                 entity.Property(e => e.Subtotal).HasColumnType("decimal(20,2)");
 
                 entity.HasOne(d => d.IdPresentacionNavigation)
-                    .WithMany(p => p.DetalleOrdenIdPresentacionNavigation)
+                    .WithMany(p => p.DetalleOrden)
                     .HasForeignKey(d => d.IdPresentacion)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_DetalleOrden_Presentacion");
@@ -221,7 +221,7 @@ namespace SaborDeMexicoAdmin.Models
                     .HasConstraintName("fk_DetalleOrden_Orden");
 
                 entity.HasOne(d => d.Producto)
-                    .WithMany(p => p.DetalleOrdenProducto)
+                    .WithMany(p => p.DetalleOrden)
                     .HasForeignKey(d => d.ProductoId)
                     .HasConstraintName("fk_DetalleOrden_Producto1");
             });
@@ -395,6 +395,13 @@ namespace SaborDeMexicoAdmin.Models
             {
                 entity.Property(e => e.Id).HasColumnType("int(11)");
 
+                entity.Property(e => e.Cp)
+                    .IsRequired()
+                    .HasColumnName("CP")
+                    .HasColumnType("tinytext")
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_unicode_ci");
+
                 entity.Property(e => e.Direccion)
                     .HasColumnType("varchar(345)")
                     .HasCharSet("utf8mb4")
@@ -426,6 +433,13 @@ namespace SaborDeMexicoAdmin.Models
                 entity.Property(e => e.ClienteId)
                     .HasColumnName("Cliente_Id")
                     .HasColumnType("int(11)");
+
+                entity.Property(e => e.Cp)
+                    .IsRequired()
+                    .HasColumnName("CP")
+                    .HasColumnType("tinytext")
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_unicode_ci");
 
                 entity.Property(e => e.Direccion)
                     .HasColumnType("varchar(545)")

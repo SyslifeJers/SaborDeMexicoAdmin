@@ -37,6 +37,7 @@ namespace SaborDeMexicoAdmin.Controllers
                 .Include(o => o.Cliente)
                 .Include(o => o.Repartidor)
                 .Include(o => o.Ruta)
+                .Include(o => o.DetalleOrden).ThenInclude(d=>d.IdPresentacionNavigation).ThenInclude(d=>d.IdProductoNavigation)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (orden == null)
             {
@@ -47,32 +48,7 @@ namespace SaborDeMexicoAdmin.Controllers
         }
 
         // GET: Ordens/Create
-        public IActionResult Create()
-        {
-            ViewData["ClienteId"] = new SelectList(_context.Cliente, "Id", "Id");
-            ViewData["RepartidorId"] = new SelectList(_context.Repartidor, "Id", "Pin");
-            ViewData["RutaId"] = new SelectList(_context.Ruta, "Id", "Id");
-            return View();
-        }
-
-        // POST: Ordens/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Total,Ordencol,Notas,Fecha,Cantidad,Activo,Modifcado,CostoEnvio,Estatus,TipoPago,RutaId,ClienteId,RepartidorId")] Orden orden)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(orden);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["ClienteId"] = new SelectList(_context.Cliente, "Id", "Id", orden.ClienteId);
-            ViewData["RepartidorId"] = new SelectList(_context.Repartidor, "Id", "Pin", orden.RepartidorId);
-            ViewData["RutaId"] = new SelectList(_context.Ruta, "Id", "Id", orden.RutaId);
-            return View(orden);
-        }
+      
 
         // GET: Ordens/Edit/5
         public async Task<IActionResult> Edit(int? id)
