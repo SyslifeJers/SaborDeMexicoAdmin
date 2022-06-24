@@ -92,6 +92,50 @@ namespace SaborDeMexicoAdmin.Controllers
                
                 return RedirectToAction(nameof(Index));
         }
+        public async Task<IActionResult> Confirm(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+
+                try
+                {
+                var model =  await _context.Orden.FirstOrDefaultAsync(m => m.Id == id);
+                model.Estatus = 1;
+                _context.Update(model);
+                    await _context.SaveChangesAsync();
+                }
+            catch
+            {
+                return NotFound();
+            }
+               
+                return RedirectToAction(nameof(Index));
+        }
+        public async Task<IActionResult> Entrega(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+
+                try
+                {
+                var model =  await _context.Orden.FirstOrDefaultAsync(m => m.Id == id);
+                model.Estatus = 2;
+                _context.Update(model);
+                    await _context.SaveChangesAsync();
+                }
+            catch
+            {
+                return NotFound();
+            }
+               
+                return RedirectToAction(nameof(Index));
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
