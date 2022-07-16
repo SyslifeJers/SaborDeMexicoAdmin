@@ -24,6 +24,39 @@ namespace SaborDeMexicoAdmin.Controllers
             var u204501959_SaborDeMexicoContext = _context.Orden.Include(o => o.Cliente).Include(o => o.Repartidor).Include(o => o.Ruta);
             return View(await u204501959_SaborDeMexicoContext.ToListAsync());
         }
+        public async Task<IActionResult> MensajeDeLlegada(int id)
+        {
+            var orden = await _context.Orden
+                .Include(o => o.Cliente)
+                .Include(o => o.Repartidor)
+                .Include(o => o.Ruta)
+                .Include(o => o.DetalleOrden).ThenInclude(d => d.IdPresentacionNavigation).ThenInclude(d => d.IdProductoNavigation)
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (orden == null)
+            {
+                return NotFound();
+            }
+            Herramientas.Correo(orden.Cliente.Correo, "Aviso", "Tu pedido esta en curso");
+
+            return View("Details", orden);
+        }
+        public async Task<IActionResult> MensajeDeDiaSiguiente(int id)
+        {
+            var orden = await _context.Orden
+                .Include(o => o.Cliente)
+                .Include(o => o.Repartidor)
+                .Include(o => o.Ruta)
+                .Include(o => o.DetalleOrden).ThenInclude(d => d.IdPresentacionNavigation).ThenInclude(d => d.IdProductoNavigation)
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (orden == null)
+            {
+                return NotFound();
+            }
+            Herramientas.Correo(orden.Cliente.Correo, "Aviso", "¿Ya hiciste tu pedido? Mañana estaremos entregando por tu zona ");
+
+            return View("Details", orden);
+        }
+
 
         // GET: Ordens/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -37,7 +70,7 @@ namespace SaborDeMexicoAdmin.Controllers
                 .Include(o => o.Cliente)
                 .Include(o => o.Repartidor)
                 .Include(o => o.Ruta)
-                .Include(o => o.DetalleOrden).ThenInclude(d=>d.IdPresentacionNavigation).ThenInclude(d=>d.IdProductoNavigation)
+                .Include(o => o.DetalleOrden).ThenInclude(d => d.IdPresentacionNavigation).ThenInclude(d => d.IdProductoNavigation)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (orden == null)
             {
@@ -48,7 +81,7 @@ namespace SaborDeMexicoAdmin.Controllers
         }
 
         // GET: Ordens/Create
-      
+
 
         // GET: Ordens/Edit/5
         public async Task<IActionResult> Edit(int? id)

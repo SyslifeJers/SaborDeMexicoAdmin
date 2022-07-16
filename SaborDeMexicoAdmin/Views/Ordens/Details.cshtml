@@ -4,10 +4,16 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
 
 <div>
-    <h4>Orden</h4>
+    <h4>Orden @Model.Id</h4>
+    <hr />
+    <a class="btn btn-dark" asp-action="MensajeDeDiaSiguiente" asp-route-id="@Model.Id">
+        Mensaje para un día antes
+    </a>   
+    <a class="btn btn-dark" asp-action="MensajeDeLlegada" asp-route-id="@Model.Id">
+        El pedido llega hoy
+    </a>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
